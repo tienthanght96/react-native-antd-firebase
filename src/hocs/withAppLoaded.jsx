@@ -6,13 +6,19 @@ import { connect } from 'react-redux'
 import { appLoadedSelector } from '../screens/root/rootSelector'
 import { appLoaded } from '../screens/root/rootActions';
 import { redColor } from '../utils/config';
+import { userSelector, isFetchedFavoriteCategoriesSelector } from '../screens/user/userSelector';
 
 export const withAppLoaded = (ComposedComp) => {
   class AppLoadedWrapper extends React.Component {
     
     render(){
-      const { appLoaded } = this.props;
-      if(!appLoaded) {
+      const { appLoaded, user, isFetchedFavoriteCategories } = this.props;
+      
+      if(appLoaded && user && user.id && isFetchedFavoriteCategories){
+        return <ComposedComp {...this.props}/>
+      }
+
+      // if(!appLoaded) {
         return (
           <Provider>
             <View style={{ paddingTop: 100 }}>
@@ -32,12 +38,14 @@ export const withAppLoaded = (ComposedComp) => {
             </View>
           </Provider>
         )
-      }
-      return <ComposedComp {...this.props}/>
+      // }
+      // return <ComposedComp {...this.props}/>
     }
   }
   const mapStateToProps = (state) => ({
-    appLoaded: appLoadedSelector(state)
+    appLoaded: appLoadedSelector(state),
+    user: userSelector(state),
+    isFetchedFavoriteCategories: isFetchedFavoriteCategoriesSelector(state)
   });
   const mapDispatchToProps = (dispatch) => ({
     appLoad: () => dispatch(appLoaded())

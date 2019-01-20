@@ -5,6 +5,7 @@ const initialState = {
   isLogin: false,
   profile: null,
   favorite_categories: [],
+  isFetchedFavoriteCategories: false,
   isLogging: false,
   isUpdattingFavoriteCategories: false,
   messageLogin: null,
@@ -73,6 +74,7 @@ export const userReducer = (state = initialState, action) => {
       ...state,
       isUpdattingFavoriteCategories: false,
       favorite_categories: action.data,
+      isFetchedFavoriteCategories: true,
     }
   }
   case ActionTypes.FETCH_MORE_BOOKMARK_ARTICLES:

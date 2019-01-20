@@ -94,9 +94,10 @@ import TotalCommentArticle from "../totalComment";
 import styles from '../../styles/SliderEntry.style';
 import { withNavigation } from 'react-navigation';
 import { ParallaxImage } from "react-native-snap-carousel";
-import { styleFlexRow, assets } from "../../utils/config";
+import { styleFlexRow, assets, styleFlexRowSpaceBetween, redColor } from "../../utils/config";
 import { Icon } from "react-native-elements";
 import { widthPercent } from "../../lib/dimensions";
+import { formatCommentReplyTime } from "../../utils/utils";
 
 export default withNavigation(class CarouselCard extends Component {
   
@@ -181,32 +182,48 @@ export default withNavigation(class CarouselCard extends Component {
           >
             {sapo}
           </Text>
-          <View style={[styleFlexRow, styles.articleActions]}>
-            <View style={[styleFlexRow, { marginRight: 5 }]}>
-              <Icon
-                type="ionicon"
-                name="ios-person"
-                size={18}
-                color={"#c3c3c3"}
-                iconStyle={{ marginRight: 5 }}
+          <View style={[styleFlexRow]}>
+            <View style={[styleFlexRow, styles.articleActions, { flex: 1 }]}>
+              <View style={[styleFlexRow, { marginRight: 5 }]}>
+                <Icon
+                  type="ionicon"
+                  name="ios-person"
+                  size={18}
+                  color={"#c3c3c3"}
+                  iconStyle={{ marginRight: 5 }}
+                />
+                <Text style={even ? { color: '#c3c3c3' } : {}}>{view || 0}</Text>
+              </View>
+              <TotalCommentArticle
+                article_id={id}
+                textStyle={{
+                  color: even ? "#c3c3c3" : "#666", fontSize: widthPercent(4), marginLeft: 5
+                }}
               />
-              <Text style={even ? { color: '#c3c3c3' } : {}}>{view || 0}</Text>
+              <BookmarkArticle
+                iconSize={18}
+                iconColor={"#c3c3c3"}
+                iconName="ios-bookmark"
+                checkBookmark={checkBookmark}
+                style={{ ...styleFlexRow, padding: 7 }}
+                article_id={id}
+                onHandleBookmarkSuccess={this.onHandleBookmarkSuccess}
+              />
             </View>
-            <TotalCommentArticle
-              article_id={id}
-              textStyle={{
-                color: even ? "#c3c3c3" : "#666", fontSize: widthPercent(4), marginLeft: 5
-              }}
-            />
-            <BookmarkArticle
-              iconSize={18}
-              iconColor={"#c3c3c3"}
-              iconName="ios-bookmark"
-              checkBookmark={checkBookmark}
-              style={{ ...styleFlexRow, padding: 7 }}
-              article_id={id}
-              onHandleBookmarkSuccess={this.onHandleBookmarkSuccess}
-            />
+            { date &&
+              <View style={[styleFlexRow, styles.datetime]}>
+                <Icon
+                  type="ionicon"
+                  name="ios-alarm"
+                  size={18}
+                  color={'#fff'}
+                  iconStyle={{ marginRight: 5 }}
+                />
+                <Text style={[styles.subtitle, even ? styles.subtitleEven : {}, {color: '#fff', marginTop: 0}]}>
+                  {formatCommentReplyTime(date / 1000)}
+                </Text>
+              </View>
+            }
           </View>
         </View>
       </TouchableOpacity>

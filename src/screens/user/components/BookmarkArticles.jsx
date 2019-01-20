@@ -137,8 +137,6 @@ export default withAppLoaded(
     {
       flex: 1,
       backgroundColor: '#fff',
-      paddingTop: 50,
-      paddingHorizontal: 20
     }
   )
 );

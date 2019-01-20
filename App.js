@@ -5,13 +5,11 @@ import firebase from 'react-native-firebase';
 import { NavigationActions } from "react-navigation";
 import { AppNavigator } from './src/navigators/AppNavigator';
 import configureStore from './src/appStore';
-import { fetchCategories, appLoaded, appLoading } from './src/screens/root/rootActions';
-import { toggleRoutePersonalize } from './src/screens/personalize/personalizeActions';
+import { fetchCategories, appLoading } from './src/screens/root/rootActions';
 import { storeDataToLocalStorage, retrieveDataLocalStorage, removeAllDataLocalStorage } from './src/utils/storage';
 import { anonymousLogin } from './src/lib/firebase/signin';
 import { userLogout, userLogin, userLoginSuccess } from './src/screens/user/userActions';
 import { dataServerForAnonymousUser } from './src/utils/utils';
-import { TOGGLE_ROUTE_PERSONALIZE } from './src/screens/personalize/actionTypes';
 
 export const store = configureStore();
 
@@ -24,7 +22,7 @@ export default class App extends React.Component {
   }
  
   async componentDidMount() {
-    store.dispatch(fetchCategories());
+    // store.dispatch(fetchCategories());
     store.dispatch(appLoading());
     this.autoLogin();
     this.handleFirstOpenApp();
@@ -63,9 +61,11 @@ export default class App extends React.Component {
   autoLogin = async () => {
     try {
       const userLocal =  await retrieveDataLocalStorage('user');
-      console.log('userLocal', userLocal)
+      // console.log('userLocal', userLocal)
       if(userLocal && JSON.parse(userLocal)) {
         const userParsed = JSON.parse(userLocal);
+        console.log('userParsed', userParsed)
+        store.dispatch(fetchCategories({ userId: userParsed.id }));
         this.userInStorerageLogin(userParsed);
         return;
       } else {
@@ -103,7 +103,11 @@ export default class App extends React.Component {
           paramsLogin,
           firebaseUser,
           authResponseFb: {},
-          callbackLoginSuccess: this.handleFirstOpenApp,
+          callbackLoginSuccess: (userData) => {
+            console.log('userData', userData)
+            store.dispatch(fetchCategories({ userId: userData.id }));
+            this.handleFirstOpenApp()
+          },
         };
         console.log('dataLogin', dataLogin)
         store.dispatch(userLogin(dataLogin));

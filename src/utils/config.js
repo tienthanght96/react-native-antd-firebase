@@ -22,5 +22,6 @@ export const styleFlexRowSpaceBetween = {
 
 export const violetColor = "#030921";
 export const fontColor = "rgb(72, 72, 72)";
-export const redColor = "#fa4a4d";
+// export const redColor = "#fa4a4d";
+export const redColor = "#f65451";
 export const yellowColor = "#fac917";

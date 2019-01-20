@@ -3,11 +3,17 @@ import { APP_LOADED, fetchedCategories, FETCH_CATEGORY } from './rootActions';
 import { CategoryApi } from '../../api/ApiService';
 import { setListCategoryFetch } from '../home/homeActions';
 
-function* fetchListCategories() {
+function* fetchListCategories(action) {
   // yield take(APP_LOADED);
   try {
-    const categories = yield call(CategoryApi.getAllCategory);
-    yield put(fetchedCategories(categories))
+    const { userId } = action.data;
+    if(!userId){
+      const categories = yield call(CategoryApi.getAllCategory);
+      yield put(fetchedCategories(categories))
+    } else {
+      const categories = yield call(CategoryApi.getAllCategoryForUserLogin, userId);
+      yield put(fetchedCategories(categories))
+    }
     // if(Array.isArray(categories)) {
     //   const topCategoryArticles = {};
     //   categories.forEach(category => {

@@ -55,7 +55,7 @@ class HomeIndex extends Component {
 
     return (
       <ScrollView
-        style={{ flex: 1, position: "relative", backgroundColor: "#f4f4f4" }}
+        style={{ flex: 1, position: "relative", backgroundColor: "#fcfcfc" }}
         scrollEnabled={true}
         showsVerticalScrollIndicator={false}
         refreshControl={

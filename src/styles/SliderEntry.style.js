@@ -6,6 +6,7 @@ import {
 import {
   colors
 } from './index.style';
+import { redColor } from '../utils/config';
 
 const IS_IOS = Platform.OS === 'ios';
 const {
@@ -47,7 +48,10 @@ export default StyleSheet.create({
       height: 10
     },
     shadowRadius: 10,
-    borderRadius: entryBorderRadius
+    borderRadius: entryBorderRadius,
+    borderColor: '#ededed',
+    borderWidth: 1,
+    elevation: 0.5,
   },
   imageContainer: {
     flex: 1,
@@ -107,5 +111,21 @@ export default StyleSheet.create({
   },
   subtitleEven: {
     color: 'rgba(255, 255, 255, 0.7)'
-  }
+  },
+  datetime: {
+    backgroundColor: redColor,
+    borderRadius: 3,
+    flexDirection: 'row',
+    // color: '#fff',
+    alignItems: 'center',
+    paddingVertical: 3,
+    paddingHorizontal: 5
+  },
+  datetimeEven: {
+    backgroundColor: redColor,
+    borderRadius: 3,
+    color: '#fff',
+    alignItems: 'center',
+    padding: 5,
+  },
 });

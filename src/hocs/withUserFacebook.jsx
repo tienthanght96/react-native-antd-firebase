@@ -20,29 +20,28 @@ export const withUserFacebook = (ComposedComp, styleWrapper) => {
 
       return (
         <View style={styleWrapper || {}}>
-          <Card>
-            <NoticeBar
-              icon={<Icon name="question-circle" size="md" color={redColor} />}
-            >
-              <Text
-                style={{
-                  fontWeight: "600",
-                  color: redColor,
-                  fontSize: widthPercent(4.25)
-                }}
-              >
-                Bạn chưa đăng nhập ?
+          <View
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              flex: 1,
+              backgroundColor: "#fff",
+              padding: 10
+            }}
+          >
+          
+            <View style={{ marginVertical: 10 }}>
+              <Text style={{
+                 fontSize: 20,
+                 textAlign: "center",
+                 margin: 10
+              }}>
+                Bạn chưa đăng nhập !
               </Text>
-            </NoticeBar>
-            <Card.Body
-              style={{ justifyContent: "center", alignItems: "center" }}
-            >
-              <View style={{ paddingVertical: 20 }}>
-                <FacebookLoginButton />
-              </View>
-            </Card.Body>
-          </Card>
-          <Provider>
+            </View>
+            <FacebookLoginButton />
+          </View>
+          {/* <Provider>
             <View>
               <Modal
                 title="Đang thực hiện"
@@ -61,7 +60,7 @@ export const withUserFacebook = (ComposedComp, styleWrapper) => {
                 </View>
               </Modal>
             </View>
-          </Provider>
+          </Provider> */}
         </View>
       );
     }

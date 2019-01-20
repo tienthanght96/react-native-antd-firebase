@@ -124,6 +124,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     backgroundColor: '#fff',
     flex: 1,
+    borderBottomColor: '#eee',
+    borderBottomWidth: 1,
   },
   titleArticle: {
     color: '#333',

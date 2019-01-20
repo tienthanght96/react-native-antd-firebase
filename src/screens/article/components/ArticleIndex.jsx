@@ -7,12 +7,12 @@ import {
 } from '@ant-design/react-native';
 import EmptyList from '../../../components/emptyList';
 import ArticleDetail from './ArticleDetail';
-import NewestArticlesList from '../../home/components/NewestArticlesList';
 import { redColor } from '../../../utils/config';
 import { sleep } from '../../../utils/utils';
 import ModalOtherAction from './ModalOtherAction';
 import FormComment from '../../../components/formComment';
 import { CommentProvider } from '../../../context/CommentContext';
+import RelativeArticles from './RelativeArticles';
 
 export default class ArticleIndex extends React.Component {
   constructor(props) {
@@ -56,6 +56,7 @@ export default class ArticleIndex extends React.Component {
             style={{
               flex: 1,
               position: 'relative',
+              backgroundColor: "#fcfcfc"
             }}
             contentContainerStyle={{position: 'relative'}}
             refreshControl={
@@ -75,7 +76,8 @@ export default class ArticleIndex extends React.Component {
                 />
               </Provider>
               <ArticleDetail article_id={params.article_id} refreshing={refreshing}/>
-              <NewestArticlesList />
+              {/* <NewestArticlesList /> */}
+              <RelativeArticles article_id={params.article_id} refreshing={refreshing} />
             </SafeAreaView>
           </ScrollView>
           <CommentProvider article_id={params.article_id} refreshing={refreshing}>

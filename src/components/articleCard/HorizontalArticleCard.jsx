@@ -153,8 +153,10 @@ const styles = StyleSheet.create({
     },
     shadowRadius: 5,
     shadowOpacity: 1.0,
-    elevation: 1,
-    marginTop: 15
+    elevation: 1.5,
+    marginTop: 15,
+    borderTopWidth: 1,
+    borderColor: '#ededed'
   },
   leftArticle: {
     flex: 4.5

@@ -12,8 +12,9 @@ export const appLoaded = () => ({
   type: APP_LOADED,
 });
 
-export const fetchCategories = () => ({
+export const fetchCategories = ({ userId }) => ({
   type: FETCH_CATEGORY,
+  data: { userId }
 });
 
 export const fetchedCategories = (data) => ({
