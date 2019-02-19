@@ -96,6 +96,7 @@ export default class ArticlesListCategory extends Component {
         </View>
       )
     }
+    
     return (
       <FlatList
         removeClippedSubviews

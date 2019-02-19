@@ -21,6 +21,11 @@ export const FETCHED_MORE_ONE_TOP_CATEGORY_ERROR= 'FETCHED_MORE_ONE_TOP_CATEGORY
 export const FETCHED_MORE_ONE_TOP_CATEGORY= 'FETCHED_MORE_ONE_TOP_CATEGORY';
 
 
+export const FETCH_RECOMMEND_TOPIC= 'FETCH_RECOMMEND_TOPIC';
+export const FETCHING_RECOMMEND_TOPIC= 'FETCHING_RECOMMEND_TOPIC';
+export const FETCHED_RECOMMEND_TOPIC= 'FETCHED_RECOMMEND_TOPIC';
+
+
 export const fetchMostView = ({ limit }) => ({
   type: FETCH_MOST_VIEW,
   data: { limit }
@@ -104,4 +109,15 @@ export const fetchedMoreOneTopCategory  = ({ category_id, list, hasLoadMore }) =
 export const fetchedMoreOneTopCategoryError  = (category_id) => ({
   type: FETCHED_MORE_ONE_TOP_CATEGORY_ERROR,
   data: { category_id }
+});
+
+export const fetchRecommendTopic = () => ({
+  type: FETCH_RECOMMEND_TOPIC,
+});
+export const fetchingRecommendTopic = () => ({
+  type: FETCHING_RECOMMEND_TOPIC
+});
+export const fetchedRecommendTopic = (data = []) => ({
+  type: FETCHED_RECOMMEND_TOPIC,
+  data
 });

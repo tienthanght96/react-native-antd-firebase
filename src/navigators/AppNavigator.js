@@ -16,6 +16,7 @@ import FavoriteCategories from "../screens/favoriteCategories";
 import ReadArticles from "../screens/user/components/ReadArticles";
 import ArticleComments from "../screens/comments/components/ArticleComments";
 import ArticleReplyComments from "../screens/comments/components/ArticleReplyComment";
+import TagsIndex from "../screens/tags/components/TagsIndex";
 
 const middlewareNavigation = createReactNavigationReduxMiddleware(
   "root",
@@ -72,7 +73,16 @@ const RootNavigator = StackNavigator(
         headerTitle: "Phản hồi"
       }) 
     },
-    Webview: { screen: WebviewContainer },
+    Webview: {
+      screen: WebviewContainer
+    },
+    Tags: {
+      screen: TagsIndex,
+      // navigationOptions: () => ({
+      //   headerTintColor: redColor,
+      //   headerTitle: "Tag"
+      // }) 
+    },
   },
   {
     mode: 'modal',

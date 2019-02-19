@@ -66,6 +66,7 @@ export const SignOutFirebase = () => {
     })
     .catch(function(error) {
       console.log("firebase signout error", error);
+      return false;
     });
 };
 

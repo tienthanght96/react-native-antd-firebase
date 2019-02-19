@@ -3,8 +3,8 @@ export const IS_JAVA_API = 'IS_JAVA_API';
 export const IS_PYTHON_API = 'IS_PYTHON_API';
 
 // export const API_JAVA_URL = 'https://newsjavaapi.azurewebsites.net';
-export const API_JAVA_URL = 'http://192.168.1.25:8080/';
-export const API_PYTHON_URL = 'http://192.168.1.25:8181/python_api';
+export const API_JAVA_URL = 'http://192.168.43.198:8080';
+export const API_PYTHON_URL = 'http://192.168.43.198:8181/python_api';
 
 export const BASE_URL = API_JAVA_URL;
 const CancelToken = axios.CancelToken;
@@ -79,7 +79,7 @@ export const ArticleApi = {
   },
   getDetailArticle: async (article_id, userId = null) => {
     try {
-      const url = userId ? `/article/${userId}/${article_id}` : `/article/${article_id}`;
+      const url = userId ? `/article/${article_id}?userId=${userId}` : `/article/${article_id}`;
       const response = await ApiJavaService.get(url);
       if(response.data && isSuccessRequest(response.status)) {
         return response.data;
@@ -118,6 +118,31 @@ export const ArticleApi = {
       const url = `/recomendArticles/${article_id}`;
       const params = startIndex ? { startIndex, quantity: 17 } : { quantity: 17 };
       const response = await ApiPythonService.get(url, { params });
+      if(response.data && isSuccessRequest(response.status)) {
+        return response.data;
+      }
+      throw response;
+    } catch (error) {
+      throw error;
+    }
+  },
+  getRecommendTopicArticles: async (user_id, { startIndex, limit }) => {
+    try {
+      const url = `/getRecommentTopicsForUser/${user_id}`;
+      const params = { startIndex, limit };
+      const response = await ApiPythonService.get(url, { params });
+      if(response.data && isSuccessRequest(response.status)) {
+        return response.data;
+      }
+      throw response;
+    } catch (error) {
+      throw error;
+    }
+  },
+  getRecommendTagsArticles: async (tag, params) => {
+    try {
+      const url = `/article/getArticleByTag/${tag}`;
+      const response = await ApiJavaService.get(url, { params });
       if(response.data && isSuccessRequest(response.status)) {
         return response.data;
       }
@@ -191,14 +216,12 @@ export const CategoryApi = {
   },
   getAllCategoryForUserLogin: async (userId) => {
     try {
-      // const response = await ApiPythonService.get(`/category/${userId}`);
       const response = await ApiPythonService.get(`/category/${userId}`);
       if(response.data && isSuccessRequest(response.status)){
         return response.data;
       }
       throw response;
     } catch (error) {
-      console.log("getAllCategoryForUserLogin", error)
       throw error;
     }
   }
@@ -263,17 +286,5 @@ export const UserApi = {
       throw error;
     }
   },
-  /* getFavoriteCategoryForUser: async (userId) => {
-    try {
-      const url = `user/listCategory/${userId}`
-      const response = await ApiJavaService.get(url);
-      if(response.data && isSuccessRequest(response.status)) {
-        return response.data;
-      }
-      throw response;
-    } catch (error) {
-      throw error;
-    }
-  }, */
   
 };

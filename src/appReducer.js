@@ -11,6 +11,7 @@ import { homeReducer } from "./screens/home/homeReducer";
 import { RootNavigator } from "./navigators/AppNavigator";
 
 import { TOGGLE_ROUTE_PERSONALIZE, TOGGLE_ROUTE_LOGIN } from './screens/user/userActions';
+import { tagsReducer } from "./screens/tags/tagsReducer";
 
 const firstAction = RootNavigator.router.getActionForPathAndParams('Main');
 const tempNavState = RootNavigator.router.getStateForAction(firstAction);
@@ -67,5 +68,6 @@ export const appReducer = combineReducers({
   root: rootReducer,
   article: articleReducer,
   home: homeReducer,
+  tags: tagsReducer
 });
 

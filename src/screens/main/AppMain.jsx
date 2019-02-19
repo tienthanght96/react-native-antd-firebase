@@ -222,6 +222,7 @@ const SimpleTabs = createBottomTabNavigator(
       path: 'bookmark',
       navigationOptions: {
         tabBarLabel: 'Đã lưu',
+        headerTintColor: redColor,
         tabBarIcon: ({ tintColor, focused, horizontal }) => (
           <Ionicons
             name={'ios-bookmark' }

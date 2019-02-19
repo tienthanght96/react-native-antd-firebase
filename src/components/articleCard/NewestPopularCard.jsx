@@ -24,6 +24,8 @@ class NewestPopularCard extends Component {
 
   render() {
     const { article } = this.props;
+    const isImageHttp = article.picture && article.picture.length >  5 && article.picture.includes('http');
+
     return (
       <TouchableOpacity
         activeOpacity={1}
@@ -34,7 +36,7 @@ class NewestPopularCard extends Component {
           <Image
             resizeMode="cover"
             style={styles.image}
-            source={{ uri: article.picture || assets.noImage }}
+            source={isImageHttp ? { uri: article.picture } : assets.noImage}
           />
         </View>
         <View style={styles.bgBlur} />

@@ -16,7 +16,7 @@ import {
   removeAllDataLocalStorage,
   storeDataToLocalStorage
 } from "../../../utils/storage";
-import { anonymousLogin } from "../../../lib/firebase/signin";
+import { anonymousLogin, SignOutFirebase } from "../../../lib/firebase/signin";
 import { formatInfoUserToSaveLocal, dataServerForAnonymousUser, sleep } from "../../../utils/utils";
 import { userSelector } from "../userSelector";
 import { userLogout, userLogin } from "../userActions";
@@ -63,6 +63,7 @@ class ProfileScreen extends React.Component {
 
   onPressLogout = async () => {
     try {
+      await SignOutFirebase();
       await removeAllDataLocalStorage();
       await storeDataToLocalStorage('isFirstOpenApp', JSON.stringify({ isFirstOpenApp: true }));
       this.props.userLogout();

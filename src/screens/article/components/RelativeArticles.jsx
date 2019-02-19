@@ -13,6 +13,7 @@ import { sliderWidth, itemWidth } from "../../../styles/SliderEntry.style";
 import styles from '../../../styles/index.style';
 import { fetchRelativeArticles, fetchMoreRelativeArticles } from "../articleActions";
 import { relativeArticlesSelector } from "../articleSelector";
+import { formatCommentReplyTime } from "../../../utils/utils";
 
 class RelativeArticles extends React.Component {
 
@@ -72,7 +73,7 @@ class RelativeArticles extends React.Component {
         </View>
       );
     }
-
+    const listFormated = list.map(ele => ({ ...ele, date: (new Date(ele.date).getTime()) }));
     return (
       <View>
         <HeaderList name="Tin liên quan" isShowRightHeader />
@@ -85,7 +86,7 @@ class RelativeArticles extends React.Component {
               refreshing={refreshing}
             />
           }
-          data={list}
+          data={listFormated}
           renderItem={this.renderItem}
           sliderWidth={sliderWidth}
           itemWidth={itemWidth}

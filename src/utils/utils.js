@@ -106,3 +106,31 @@ export const storage = () => {
 export function sleep(time) {
   return new Promise(resolve => setTimeout(() => resolve(), time))
 };
+
+export const replaceSizeImage = (imageUrl) => {
+  if(!imageUrl || typeof imageUrl !== 'string') {
+    return '/static/img/no_image_available.jpg';
+  }
+  if(imageUrl.includes("_r_180x108")) {
+    return imageUrl.replace("_r_180x108", "");
+  }
+  if(imageUrl.includes("_180x108")) {
+    return imageUrl.replace("_180x108", "");
+  }
+  
+  if(imageUrl.includes("188_117")) {
+    return imageUrl.replace("188_117", "500_300");
+  }
+
+  return imageUrl;
+};
+
+export const getTags = (tags) => {
+  if(!tags || typeof tags !== 'string') {
+    return [];
+  } 
+  const tagsFormated = tags.split("~").filter(ele => ele.length > 0);
+
+  return tagsFormated;
+
+}

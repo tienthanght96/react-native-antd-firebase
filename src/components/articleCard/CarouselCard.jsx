@@ -108,10 +108,13 @@ export default withNavigation(class CarouselCard extends Component {
       parallaxProps,
       even
     } = this.props;
+    // const imageSrc = picture && picture.length >  5 && picture.includes('http') ? picture : assets.noImage;
+    const isImageHttp = picture && picture.length >  5 && picture.includes('http');
 
     return parallax ? (
       <ParallaxImage
-        source={{ uri: picture || assets.noImage }}
+        // source={{ uri: picture || assets.noImage }}
+        source={isImageHttp ? { uri: picture } : assets.noImage}
         containerStyle={[
           styles.imageContainer,
           even ? styles.imageContainerEven : {}
@@ -123,7 +126,8 @@ export default withNavigation(class CarouselCard extends Component {
         {...parallaxProps}
       />
     ) : (
-      <Image source={{ uri: picture || assets.noImage }} style={styles.image} />
+      // <Image source={{ uri: picture || assets.noImage }} style={styles.image} />
+      <Image source={isImageHttp ? { uri: picture } : assets.noImage} style={styles.image} />
     );
   }
 

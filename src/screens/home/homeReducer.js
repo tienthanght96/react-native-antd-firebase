@@ -14,6 +14,10 @@ const initialState = {
     isLoadingMore: false,
     hasLoadMore: false,
   },
+  recomendTopicArticles: {
+    isPending: false,
+    list: [],
+  },
   topCategoryArticles: {},
 }
 
@@ -203,6 +207,26 @@ export const homeReducer = (state = initialState, action) => {
       },
     }
   }
+  
+  case ActionTypes.FETCHING_RECOMMEND_TOPIC: {
+    return {
+      ...state,
+      recomendTopicArticles: {
+        ...state.recomendTopicArticles,
+        isPending: true
+      }
+    }
+  }
+  case ActionTypes.FETCHED_RECOMMEND_TOPIC: {
+    return {
+      ...state,
+      recomendTopicArticles: {
+        isPending: false,
+        list: action.data,
+      }
+    }
+  }
+
   default:
     return state
   }

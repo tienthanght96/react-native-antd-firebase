@@ -7,7 +7,7 @@ import { AppNavigator } from './src/navigators/AppNavigator';
 import configureStore from './src/appStore';
 import { fetchCategories, appLoading } from './src/screens/root/rootActions';
 import { storeDataToLocalStorage, retrieveDataLocalStorage, removeAllDataLocalStorage } from './src/utils/storage';
-import { anonymousLogin } from './src/lib/firebase/signin';
+import { anonymousLogin, SignOutFirebase } from './src/lib/firebase/signin';
 import { userLogout, userLogin, userLoginSuccess } from './src/screens/user/userActions';
 import { dataServerForAnonymousUser } from './src/utils/utils';
 
@@ -87,9 +87,10 @@ export default class App extends React.Component {
     try {
       await removeAllDataLocalStorage();
       await storeDataToLocalStorage('isFirstOpenApp', JSON.stringify({ isFirstOpenApp: true }));
+      await SignOutFirebase();
       store.dispatch(userLogout());
       const firebaseUser = await anonymousLogin();
-      console.log('anonymousUserLogin', firebaseUser, firebaseUser.uid);
+      // console.log('anonymousUserLogin', firebaseUser, firebaseUser.uid);
       // return;
       if(firebaseUser && firebaseUser.uid){
         const paramsLogin = {

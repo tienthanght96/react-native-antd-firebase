@@ -7,7 +7,7 @@ import {
   fetchingNewest, FETCH_NEWEST, FETCH_MOST_VIEW,
   fetchedMoreNewest, fetchMoreNewestError, FETCH_MORE_NEWEST,
   FETCH_TOP_CATEGORY, fetchedTopCategory,
-  setListCategoryFetch, resetListTopCategory, FETCH_ONE_TOP_CATEGORY, fetchingTopCategory, fetchedMoreOneTopCategory, fetchedMoreOneTopCategoryError, FETCH_MORE_ONE_TOP_CATEGORY,
+  setListCategoryFetch, resetListTopCategory, FETCH_ONE_TOP_CATEGORY, fetchingTopCategory, fetchedMoreOneTopCategory, fetchedMoreOneTopCategoryError, FETCH_MORE_ONE_TOP_CATEGORY, FETCH_RECOMMEND_TOPIC, fetchingRecommendTopic, fetchedRecommendTopic,
 } from './homeActions';
 import { getNewestSeletor, getTopCategorySelector } from './homeSelector';
 import { userSelector, userFavoriteCategoriesSelector } from '../user/userSelector';
@@ -149,8 +149,21 @@ function* getOneTopCategory(action) {
 
 function* getMoreOneTopCategory(action) {
   const { category_id } = action.data;
-  console.log('category', category_id)
   yield call(loadMoreOneTopCategoryItem, category_id)
+}
+
+function* getRecommendTopic() {
+  const user = yield select(userSelector);
+  const userId = user && user.id ? user.id : null;
+  // yield take(APP_LOADED);
+  yield put(fetchingRecommendTopic());
+  try {
+
+    const response = yield call(ArticleApi.getRecommendTopicArticles, userId, { startIndex: 0, limit: 6 });
+    yield put(fetchedRecommendTopic(response));
+  } catch (error) {
+    yield put(fetchedRecommendTopic([]));
+  }
 }
 
 function* watchGetMostView() {
@@ -174,6 +187,10 @@ function* watchMoreGetOneTopCategory() {
   yield takeLatest(FETCH_MORE_ONE_TOP_CATEGORY, getMoreOneTopCategory)
 }
 
+function* watchGetRecommendTopic() {
+  yield takeLatest(FETCH_RECOMMEND_TOPIC, getRecommendTopic)
+}
+
 export function* homeSaga(){
   yield all([
     watchGetMostView(),
@@ -181,6 +198,7 @@ export function* homeSaga(){
     watchGetMoreNewest(),
     watchGetTopCategory(),
     watchGetOneTopCategory(),
-    watchMoreGetOneTopCategory()
+    watchMoreGetOneTopCategory(),
+    watchGetRecommendTopic()
   ])
 }

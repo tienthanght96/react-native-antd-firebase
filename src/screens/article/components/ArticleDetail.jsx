@@ -10,10 +10,11 @@ import { ArticleApi } from "../../../api/ApiService";
 import { articleDetailSelector, isPendingArticleDetailSelector } from "../articleSelector";
 import { widthPercent, height } from '../../../lib/dimensions';
 import { redColor, styleFlexRow } from '../../../utils/config';
-import { formatCommentReplyTime } from '../../../utils/utils';
+import { formatCommentReplyTime, getTags } from '../../../utils/utils';
 import BodyContentArticle from './BodyContentArticle';
 import EmptyList from '../../../components/emptyList';
 import BookmarkArticle from '../../../components/bookmarkArticle';
+import { TagsArticles } from './ArticleTags';
 
 class ArticleDetail extends Component {
 
@@ -113,6 +114,8 @@ class ArticleDetail extends Component {
             bodyHtml={articleDetail.content || ''}
           />
         </View>
+        <WhiteSpace />
+        <TagsArticles tags={getTags(articleDetail.tags)} navigation={this.props.navigation}/>
         <WhiteSpace />
       </View>
     );

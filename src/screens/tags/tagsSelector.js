@@ -1,0 +1,1 @@
+export const tagsArticlesSelector = state => state.tags;

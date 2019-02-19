@@ -12,6 +12,7 @@ import { redColor } from "../../../utils/config";
 import { withAppLoaded } from '../../../hocs/withAppLoaded';
 import TabsTopCategory from "./TabsTopCategory";
 import MostViewArticles from "./MostViewArticles";
+import HomeRecommand from "./HomeRecommand";
 
 class HomeIndex extends Component {
   constructor(props) {
@@ -73,6 +74,7 @@ class HomeIndex extends Component {
             navigate={navigate}
             isLoggedIn={isLoggedIn}
           />
+          <HomeRecommand  refreshing={refreshing}/>
           <NewestArticlesList
             refreshing={refreshing}
             navigate={navigate}

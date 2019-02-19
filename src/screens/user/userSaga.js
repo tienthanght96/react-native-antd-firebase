@@ -28,6 +28,7 @@ function* userLoginServer(action){
   yield put(userLogining());
   // yield put(toggleModalOverflow({ isOpenModal: true, dataModal: {} }))
   try {
+    console.log('paramsLogin', paramsLogin)
     const responseServer = yield call(UserApi.login, paramsLogin);
     // format user data
     const dataUserFormated = formatInfoUserToSaveLocal(

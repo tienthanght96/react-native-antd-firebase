@@ -33,6 +33,7 @@ class HorizontalArticleCard extends Component {
   render() {
     const { article } = this.props;
     const { category } = article;
+    const isImageHttp = article.picture && article.picture.length >  5 && article.picture.includes('http');
 
     return (
       <TouchableOpacity
@@ -48,7 +49,7 @@ class HorizontalArticleCard extends Component {
                 ? styles.imageArticle
                 : { height: widthPercent(25), width: "100%" }
             }
-            source={article.picture ? { uri: article.picture } : assets.noImage}
+            source={isImageHttp ? { uri: article.picture } : assets.noImage}
           />
         </View>
 
